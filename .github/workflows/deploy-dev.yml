@@ -1,0 +1,23 @@
+name: Deploy dev to Vercel
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-dev-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Trigger Vercel preview deployment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger the dev branch deploy hook
+        run: curl --fail --retry 3 --request POST "${{ secrets.VERCEL_DEV_DEPLOY_HOOK }}"
