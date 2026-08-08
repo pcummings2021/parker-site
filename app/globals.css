@@ -17,3 +17,27 @@ body {
 }
 
 ::selection { background: var(--ink); color: var(--paper); }
+
+@keyframes cursor-blink {
+  0%, 42% { opacity: 1; }
+  43%, 100% { opacity: 0; }
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 0.075em;
+  height: 0.68em;
+  margin-left: 0.055em;
+  vertical-align: -0.04em;
+  background: currentColor;
+  animation: cursor-blink 0.9s steps(1, end) infinite;
+}
+
+.typing-cursor--complete {
+  animation-duration: 0.52s;
+  box-shadow: 0 0 0.08em currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-cursor { animation: none; }
+}

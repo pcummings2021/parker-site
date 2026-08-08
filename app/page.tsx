@@ -1,3 +1,5 @@
+import { HeroTypewriter } from "./hero-typewriter";
+
 const projects = [
   { number: "01", name: "Somewhere", type: "Brand / Digital", year: "2025" },
   { number: "02", name: "Off Grid", type: "Product / Strategy", year: "2024" },
@@ -16,9 +18,7 @@ export default function Home() {
         <p className="mb-6 max-w-md text-xs leading-relaxed uppercase tracking-[0.08em] sm:text-sm">
           An independent creative practice for ideas that need to exist in the real world.
         </p>
-        <h1 className="max-w-6xl text-[14vw] font-black uppercase leading-[0.78] tracking-[-0.1em] sm:text-[13vw]">
-          Parker<br />Parker<br />Parker
-        </h1>
+        <HeroTypewriter />
       </section>
 
       <section id="work" className="border-t border-black pt-3">
