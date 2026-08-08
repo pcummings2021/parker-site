@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #b0a28c;
+  --ink: #0a0a0a;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
