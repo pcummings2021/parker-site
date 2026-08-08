@@ -18,26 +18,32 @@ body {
 
 ::selection { background: var(--ink); color: var(--paper); }
 
-@keyframes cursor-blink {
-  0%, 42% { opacity: 1; }
-  43%, 100% { opacity: 0; }
+@keyframes hero-flip-in {
+  0% {
+    opacity: 0;
+    transform: perspective(900px) rotateX(-68deg) rotateY(-8deg) translateY(-0.26em) scale(0.72);
+  }
+  52% {
+    opacity: 1;
+    transform: perspective(900px) rotateX(10deg) rotateY(1deg) translateY(0.025em) scale(1.045);
+  }
+  72% {
+    transform: perspective(900px) rotateX(-6deg) rotateY(-0.5deg) translateY(-0.015em) scale(0.985);
+  }
+  88% {
+    transform: perspective(900px) rotateX(3deg) rotateY(0) translateY(0) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(900px) rotateX(0) rotateY(0) translateY(0) scale(1);
+  }
 }
 
-.typing-cursor {
-  display: inline-block;
-  width: 0.075em;
-  height: 0.68em;
-  margin-left: 0.055em;
-  vertical-align: -0.04em;
-  background: currentColor;
-  animation: cursor-blink 0.9s steps(1, end) infinite;
-}
-
-.typing-cursor--complete {
-  animation-duration: 0.52s;
-  box-shadow: 0 0 0.08em currentColor;
+.hero-title {
+  transform-origin: 50% 100%;
+  animation: hero-flip-in 1.05s cubic-bezier(0.22, 0.9, 0.26, 1.12) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .typing-cursor { animation: none; }
+  .hero-title { animation: none; }
 }
