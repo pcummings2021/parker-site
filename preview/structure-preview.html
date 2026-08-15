@@ -1,0 +1,461 @@
+<title>Mycilia Descent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --sky: #E3E8DB;
+    --sky-ink: #242B20;
+    --sky-muted: #5A614F;
+    --s0: #3A2E23;
+    --s1: #33291E;
+    --s2: #2C231A;
+    --s3: #251E17;
+    --s4: #1F1914;
+    --s5: #181411;
+    --s6: #12100E;
+    --floor: #0D0B0A;
+    --ink: #E8E1D2;
+    --muted: #A69B87;
+    --accent: #D9A75B;
+    --record: #C9D1BB;
+    --rail: rgba(203, 194, 174, 0.26);
+    --panel: rgba(0, 0, 0, 0.28);
+    --panel-edge: rgba(232, 225, 210, 0.12);
+    --serif: Charter, 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--floor);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .col {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  /* ---- mock banner ---- */
+  .mockbar {
+    background: #14110D;
+    color: #8F8674;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    padding: 0.55rem 1.25rem;
+    text-align: center;
+  }
+  .mockbar strong { color: #C0B49B; font-weight: 600; letter-spacing: 0.1em; }
+
+  /* ---- surface ---- */
+  .surface {
+    background: var(--sky);
+    color: var(--sky-ink);
+    padding: 4.5rem 0 3.5rem;
+    text-align: center;
+  }
+  .wordmark {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.32em;
+    text-transform: lowercase;
+    color: var(--sky-muted);
+    margin: 0 0 2.25rem;
+  }
+  .surface h1 {
+    font-size: clamp(1.9rem, 7.5vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    margin: 0 auto 1rem;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+  .surface .sub {
+    color: var(--sky-muted);
+    font-style: italic;
+    margin: 0 auto 2.5rem;
+    max-width: 34ch;
+    text-wrap: balance;
+  }
+  .art-slot {
+    border: 1px dashed rgba(36, 43, 32, 0.35);
+    border-radius: 6px;
+    color: var(--sky-muted);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.6;
+    margin: 0 auto 2.5rem;
+    max-width: 22rem;
+    padding: 3.25rem 1.5rem;
+  }
+  .cue {
+    color: var(--sky-muted);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .cue .arrow { display: inline-block; }
+
+  /* ---- ground line ---- */
+  .ground {
+    height: 72px;
+    background: linear-gradient(to bottom, var(--sky) 0%, #8C8468 18%, #55452F 45%, var(--s0) 100%);
+  }
+
+  /* ---- junctions ---- */
+  .junction { padding: 3.5rem 0 3rem; }
+  .j1 { background: linear-gradient(to bottom, var(--s0), var(--s1)); }
+  .j2 { background: linear-gradient(to bottom, var(--s1), var(--s2)); }
+  .j3 { background: linear-gradient(to bottom, var(--s2), var(--s3)); }
+  .j4 { background: linear-gradient(to bottom, var(--s3), var(--s4)); }
+  .j5 { background: linear-gradient(to bottom, var(--s4), var(--s5)); }
+  .j6 { background: linear-gradient(to bottom, var(--s5), var(--s6)); }
+
+  .j-inner {
+    border-left: 1px solid var(--rail);
+    padding-left: 1.2rem;
+  }
+
+  .eyebrow {
+    position: relative;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.9rem;
+  }
+  .eyebrow::before {
+    content: "";
+    position: absolute;
+    left: calc(-1.2rem - 4.5px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .junction h2 {
+    font-size: clamp(1.45rem, 5.5vw, 1.9rem);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 0.9rem;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .junction p {
+    color: var(--ink);
+    margin: 0 0 1rem;
+    max-width: 58ch;
+  }
+  .junction p.aside {
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+
+  /* ---- glimpses ---- */
+  .glimpse { margin: 1.4rem 0 0.4rem; }
+  .glimpse-label {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 0 0 0.45rem;
+  }
+  .glimpse-label .pin { color: var(--record); }
+  .glimpse pre {
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: 6px;
+    color: var(--record);
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    line-height: 1.55;
+    margin: 0;
+    overflow-x: auto;
+    padding: 0.85rem 1rem;
+  }
+  .glimpse pre .hot { color: var(--accent); }
+  .glimpse pre .ok { color: #A9C68F; }
+
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .pair pre { font-size: 0.7rem; }
+
+  /* ---- floor ---- */
+  .floor {
+    background: linear-gradient(to bottom, var(--s6), var(--floor));
+    padding: 4rem 0 3rem;
+    text-align: center;
+  }
+  .floor h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 auto 0.8rem;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  .floor p {
+    color: var(--muted);
+    margin: 0 auto 2rem;
+    max-width: 36ch;
+  }
+  .cta {
+    display: inline-block;
+    border: 1px dashed var(--accent);
+    border-radius: 6px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 0.85rem 1.6rem;
+    text-decoration: none;
+  }
+  .cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cta-note {
+    color: #6E6555;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    line-height: 1.6;
+    margin: 1rem auto 0;
+    max-width: 30rem;
+  }
+
+  footer {
+    border-top: 1px solid rgba(232, 225, 210, 0.08);
+    color: #6E6555;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.05em;
+    padding: 1.5rem 1.25rem 2.5rem;
+    text-align: center;
+  }
+
+  /* ---- motion (progressive; content visible without JS) ---- */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .js .reveal.in { opacity: 1; transform: none; }
+  @keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+  .cue .arrow { animation: drift 2.4s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .cue .arrow { animation: none; }
+  }
+</style>
+
+<div id="page">
+
+  <div class="mockbar">
+    <strong>PRELIMINARY MOCK</strong> · content &amp; flow only · placeholder palette — final
+    colors come from the tree artwork · glimpses marked ◌ are representative, not yet
+    generated fixtures
+  </div>
+
+  <!-- ==================== THE SURFACE ==================== -->
+  <header class="surface">
+    <div class="col">
+      <p class="wordmark">m y c i l i a</p>
+      <h1>AI that behaves like software, not like chat.</h1>
+      <p class="sub">This is what runs your work. Everything holding it up is below.</p>
+      <div class="art-slot">◌ tree-of-life artwork — to be supplied<br>
+      (sole source of the final palette)</div>
+      <p class="cue">descend <span class="arrow">↓</span></p>
+    </div>
+  </header>
+
+  <div class="ground" aria-hidden="true"></div>
+
+  <!-- ==================== JUNCTION 1 ==================== -->
+  <section class="junction j1">
+    <div class="col">
+      <div class="j-inner reveal">
+        <p class="eyebrow">Junction 1 · Spend</p>
+        <h2>It cannot run away with your money.</h2>
+        <p>Every job carries a hard ceiling — on spend, on time, on steps. The ceiling is
+        checked before every single action the AI takes, so a task can never quietly run
+        up a bill or hang forever.</p>
+        <p class="aside">The worst case is a number you chose.</p>
+        <div class="glimpse">
+          <p class="glimpse-label">◌ the budget block — four lines in the job's own file</p>
+          <pre>budget:
+  tokens: <span class="hot">20000</span>
+  time_seconds: <span class="hot">120</span>
+  steps: <span class="hot">40</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JUNCTION 2 ==================== -->
+  <section class="junction j2">
+    <div class="col">
+      <div class="j-inner reveal">
+        <p class="eyebrow">Junction 2 · Boundary</p>
+        <h2>It cannot see anything you didn't show it.</h2>
+        <p>You point it at one folder. It cannot reach outside — and it cannot talk its
+        way out, because the boundary is not something the AI is ever consulted about.</p>
+        <p>Anything it proposes that crosses the line is refused, and the refusal itself
+        goes on the record.</p>
+        <div class="glimpse">
+          <p class="glimpse-label">◌ the whole boundary, in one line</p>
+          <pre>scope: <span class="hot">..</span></pre>
+        </div>
+        <div class="glimpse">
+          <p class="glimpse-label">◌ a refusal, on the record</p>
+          <pre>reason.step · action_rejection
+rejected 1 proposed action: tool not granted</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JUNCTION 3 ==================== -->
+  <section class="junction j3">
+    <div class="col">
+      <div class="j-inner reveal">
+        <p class="eyebrow">Junction 3 · Evidence</p>
+        <h2>You can see exactly what it did.</h2>
+        <p>Every run writes a complete, ordered record: what the AI was asked, what it
+        opened, what it decided, what it produced. The record prints as plain English —
+        something you can hand to a client or a manager, not a wall of JSON.</p>
+        <p class="aside">When a number is an estimate rather than a measurement, the
+        record says so.</p>
+        <div class="glimpse">
+          <p class="glimpse-label"><span class="pin">●</span> narration quoted from the
+          runtime — table composed; final fixture to be generated</p>
+          <pre>┌───┬───────────────┬──────────────────────────┐
+│ # │ Event         │ What happened            │
+├───┼───────────────┼──────────────────────────┤
+│ 1 │ run.start     │ Run begins; node built   │
+│   │               │ with scope_root = /repo  │
+│ 2 │ program.start │ chain_of_thought starts  │
+│   │               │ on the task              │
+│ 3 │ model.call    │ Model asked to pick      │
+│   │               │ observation actions      │
+│ 4 │ tool.result   │ Reads two_sum.txt        │
+│ 5 │ reason.step   │ <span class="ok">✅ Output is valid JSON</span>  │
+│ 6 │ model.result  │ Replied (312 chars)      │
+│ 7 │ run.complete  │ Final output emitted     │
+└───┴───────────────┴──────────────────────────┘</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JUNCTION 4 ==================== -->
+  <section class="junction j4">
+    <div class="col">
+      <div class="j-inner reveal">
+        <p class="eyebrow">Junction 4 · Proof</p>
+        <h2>You can prove it again, later, without paying again.</h2>
+        <p>The record is not a description of the work — it is a re-runnable copy of it.
+        Any past job can be re-executed from its recording and verified, on a machine
+        with no AI vendor account at all.</p>
+        <p class="aside">Record once. Replay anywhere.</p>
+        <div class="glimpse">
+          <p class="glimpse-label">◌ the verification block, printed after every replay</p>
+          <pre>replay: executed
+output_matches: <span class="ok">True</span>
+completions: 3/3 used, 0 prompt divergence(s)</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JUNCTION 5 ==================== -->
+  <section class="junction j5">
+    <div class="col">
+      <div class="j-inner reveal">
+        <p class="eyebrow">Junction 5 · Cost</p>
+        <h2>The same work, for less, decided by you.</h2>
+        <p>Route the routine steps to a fast, inexpensive model and keep the expensive
+        one for the step that actually needs it — set in the job's own file, never
+        decided by the AI.</p>
+        <p>And nothing is welded to one vendor. If pricing changes or a model is retired,
+        you change one word.</p>
+        <div class="glimpse">
+          <p class="glimpse-label">◌ the same job, two vendors — one changed word</p>
+          <div class="pair">
+            <pre>model:
+  provider: <span class="hot">openai</span></pre>
+            <pre>model:
+  provider: <span class="hot">gemini</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JUNCTION 6 ==================== -->
+  <section class="junction j6">
+    <div class="col">
+      <div class="j-inner reveal">
+        <p class="eyebrow">Junction 6 · Compounding</p>
+        <h2>It gets better because you used it.</h2>
+        <p>Every job leaves behind a complete, self-contained record of how your
+        operation actually works — owned by you, not by an AI vendor. That accumulating
+        record is what the system learns your work from.</p>
+        <p class="aside">The network under the tree was never plumbing. It was the asset,
+        growing the whole time.</p>
+        <div class="glimpse">
+          <p class="glimpse-label">◌ the estate of runs, accumulating</p>
+          <pre>runs/2026-07-14_intake_review.jsonl
+runs/2026-07-15_intake_review.jsonl
+runs/2026-07-16_intake_review.jsonl
+        ⋮</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== THE FLOOR ==================== -->
+  <section class="floor">
+    <div class="col reveal">
+      <h2>See your operation run this way.</h2>
+      <p>One conversation. Bring the job you wish you could hand off.</p>
+      <a class="cta" href="#" aria-disabled="true">[ contact — to be supplied ]</a>
+      <p class="cta-note">⚠ no CTA exists in the repo yet — an email or booking link is
+      needed before the real build</p>
+    </div>
+  </section>
+
+  <footer>
+    Mycilia AI LLC · myciliaai.com <span aria-hidden="true">·</span> canonical domain to confirm
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var page = document.getElementById('page');
+    page.classList.add('js');
+    if (!('IntersectionObserver' in window)) { page.classList.remove('js'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
