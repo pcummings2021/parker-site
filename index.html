@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mycilia</title>
-<meta name="description" content="Mycilia runs AI work like software: declared, executed, recorded. Every job governed, bounded, evidenced — and repeatable.">
+<meta name="description" content="Mycilia runs AI work like software. Every job has a spending ceiling, a data boundary, and a complete record you can rerun and verify.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌳</text></svg>">
 <style>
   :root {
@@ -28,6 +28,7 @@
     --reveal-dy: 16px;
     --accent: #D9A75B;
     --accent-hi: #F3CE8C;
+    --halt: #C06F45;
     --record: #C9D1BB;
     --ok: #A9C68F;
     --root-pale: #D8CFBB;
@@ -251,6 +252,28 @@
   }
   .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.6rem; }
   .pair pre { font-size: 0.7rem; }
+
+  /* concept visuals */
+  .viz { display: block; width: 100%; height: auto; margin: 0.3rem 0 0.2rem; }
+  .viz text { font-family: var(--mono); }
+  .vz-rec { fill: var(--record); }
+  .vz-mut { fill: var(--muted); }
+  .vz-dim { fill: var(--faint); }
+  .vz-acc { fill: var(--accent); }
+  .vz-hi { fill: var(--accent-hi); }
+  .vz-halt { fill: var(--halt); }
+  .vz-track { fill: rgba(232, 225, 210, 0.1); }
+  .vz-fill { fill: var(--accent); }
+  .vz-cap { stroke: var(--halt); stroke-width: 2.5; }
+  .vz-fence { fill: rgba(0, 0, 0, 0.18); stroke: var(--accent); stroke-dasharray: 6 6; stroke-width: 1.4; }
+  .vz-root { stroke: var(--record); fill: none; stroke-linecap: round; }
+  .vz-gold { stroke: var(--accent); fill: none; stroke-linecap: round; }
+  .vz-ghost { stroke: var(--record); fill: none; stroke-linecap: round; stroke-dasharray: 3 5; opacity: 0.3; }
+  .vz-node { fill: var(--accent-hi); }
+  .js .grow { transform: scaleX(0); transform-box: fill-box; transform-origin: left center; transition: transform 1.3s cubic-bezier(0.25, 0.1, 0.25, 1) 0.45s; }
+  .js .in .grow { transform: scaleX(1); }
+  .js .pop { opacity: 0; transition: opacity 0.5s ease 1.1s; }
+  .js .in .pop { opacity: 1; }
   @media (max-width: 420px) {
     .glimpse pre { font-size: 0.7rem; }
   }
@@ -328,6 +351,8 @@
     .js .reveal { opacity: 1; transform: none; transition: none; }
     .rootsvg .seg { stroke-dashoffset: 0 !important; transition: none; }
     .rootsvg .bulb { opacity: 1 !important; transition: none; }
+    .js .grow { transform: none; transition: none; }
+    .js .pop { opacity: 1; transition: none; }
   }
 </style>
 </head>
@@ -362,12 +387,25 @@
           <span class="anchor" aria-hidden="true"></span>
           <p class="eyebrow">Junction 1 · Spend</p>
           <h2>It cannot run away with your money.</h2>
-          <p>Every job carries a hard ceiling — on spend, on time, on steps. The ceiling
-          is checked before every single action the AI takes, so a task can never quietly
-          run up a bill or hang forever.</p>
+          <p>Every job carries a hard ceiling on spend, on time, and on steps. The
+          runtime checks that ceiling before each action it takes. When the ceiling is
+          reached, the job stops, mid-stride if it must.</p>
           <p class="aside">The worst case is a number you chose.</p>
           <div class="glimpse">
-            <p class="glimpse-label">the budget block — four lines in the job's file</p>
+            <p class="glimpse-label">an overnight job meets its ceiling · drafting replies
+            to 1,214 warranty claims</p>
+            <svg class="viz" viewBox="0 0 560 128" role="img" aria-label="A spending meter filling up and stopping exactly at its ceiling">
+              <text x="24" y="30" font-size="16" class="vz-mut">tokens spent</text>
+              <text x="452" y="30" font-size="16" text-anchor="end" class="vz-acc">ceiling · 20,000</text>
+              <rect x="24" y="44" width="428" height="12" rx="6" class="vz-track"/>
+              <g class="grow"><rect x="24" y="44" width="425" height="12" rx="6" class="vz-fill"/></g>
+              <line x1="452" y1="34" x2="452" y2="72" class="vz-cap"/>
+              <text x="24" y="90" font-size="16" class="vz-rec">19,874 / 20,000</text>
+              <text x="452" y="90" font-size="16" text-anchor="end" class="vz-halt pop">stops here, always</text>
+            </svg>
+          </div>
+          <div class="glimpse">
+            <p class="glimpse-label">where the ceiling was set · four lines in the job's file</p>
             <pre>budget:
   tokens: <span class="hot">20000</span>
   time_seconds: <span class="hot">120</span>
@@ -383,20 +421,36 @@
           <span class="anchor" aria-hidden="true"></span>
           <p class="eyebrow">Junction 2 · Boundary</p>
           <h2>It cannot see anything you didn't show it.</h2>
-          <p>You point it at one folder. It cannot reach outside — and it cannot talk its
-          way out, because the boundary is not something the AI is ever consulted
-          about.</p>
-          <p>Anything it proposes that crosses the line is refused, and the refusal
-          itself goes on the record.</p>
+          <p>You point it at one folder. That folder is the whole world the job can
+          see.</p>
+          <p>The AI is never asked where the line is, so there is nothing to negotiate
+          with. When it proposes reading outside the folder, the runtime refuses, and the
+          refusal itself goes on the record.</p>
           <div class="glimpse">
-            <p class="glimpse-label">the whole boundary, in one line</p>
-            <pre>scope: <span class="hot">..</span></pre>
+            <p class="glimpse-label">one line in the file draws the fence · scope: ./claims/2026</p>
+            <svg class="viz" viewBox="0 0 560 232" role="img" aria-label="A fenced folder of claim files; a request reaching toward payroll is stopped at the fence">
+              <rect x="20" y="22" width="300" height="186" rx="10" class="vz-fence"/>
+              <text x="42" y="52" font-size="17" class="vz-acc">./claims/2026</text>
+              <text x="42" y="84" font-size="16" class="vz-rec">flood_0182.pdf</text>
+              <text x="42" y="110" font-size="16" class="vz-rec">wind_0177.pdf</text>
+              <text x="42" y="136" font-size="16" class="vz-rec">photos/roof_04.jpg</text>
+              <text x="42" y="162" font-size="16" class="vz-rec">adjuster_notes.md</text>
+              <circle cx="262" cy="128" r="5" class="vz-node"/>
+              <text x="240" y="192" font-size="14" class="vz-mut">the job</text>
+              <text x="372" y="84" font-size="16" class="vz-dim">payroll/</text>
+              <text x="372" y="110" font-size="16" class="vz-dim">contracts/</text>
+              <text x="372" y="136" font-size="16" class="vz-dim">inbox/</text>
+              <line x1="268" y1="124" x2="314" y2="104" class="vz-root" stroke-width="1.6"/>
+              <line x1="330" y1="97" x2="364" y2="84" class="vz-ghost" stroke-width="1.4"/>
+              <text x="313" y="108" font-size="21" class="vz-halt pop">✕</text>
+              <text x="20" y="228" font-size="16" class="vz-mut">asked for payroll/ · refused at the fence</text>
+            </svg>
           </div>
           <div class="glimpse">
-            <p class="glimpse-label">a refusal, on the record</p>
+            <p class="glimpse-label">the refusal, as the record keeps it</p>
             <pre>reason.step · action_rejection
 rejected 1 proposed action: tool not granted</pre>
-            <p class="glimpse-note">illustrative — from a demonstration run</p>
+            <p class="glimpse-note">illustrative · demonstration data</p>
           </div>
         </div>
       </div>
@@ -408,26 +462,26 @@ rejected 1 proposed action: tool not granted</pre>
           <span class="anchor" aria-hidden="true"></span>
           <p class="eyebrow">Junction 3 · Evidence</p>
           <h2>You can see exactly what it did.</h2>
-          <p>Every run writes a complete, ordered record: what the AI was asked, what it
-          opened, what it decided, what it produced. The record prints as plain English —
-          something you can hand to a client or a manager, not a wall of JSON.</p>
+          <p>Every run writes an ordered record of the whole job: each file opened, each
+          decision taken, each answer given. The record prints as plain English that you
+          can hand to a client or a manager.</p>
           <p class="aside">When a number is an estimate rather than a measurement, the
           record says so.</p>
           <div class="glimpse">
-            <p class="glimpse-label">a run, narrated</p>
+            <p class="glimpse-label">a run, narrated · the job: check an invoice against
+            the signed rate card</p>
             <pre> # │ Event         │ What happened
 ───┼───────────────┼──────────────────────────
  1 │ run.start     │ Run begins; node built
-   │               │ with scope_root = /repo
+   │               │ with scope = ./billing
  2 │ program.start │ chain_of_thought starts
    │               │ on the task
- 3 │ model.call    │ Model asked to pick
-   │               │ observation actions
- 4 │ tool.result   │ Reads two_sum.txt
- 5 │ reason.step   │ <span class="ok">ok</span> Output is valid JSON
- 6 │ model.result  │ Replied (312 chars)
+ 3 │ tool.result   │ Reads rate_card_2026.pdf
+ 4 │ tool.result   │ Reads invoice_0347.pdf
+ 5 │ reason.step   │ <span class="hot">Line 12 uses the old rate</span>
+ 6 │ model.result  │ Replied (214 chars)
  7 │ run.complete  │ Final output emitted</pre>
-            <p class="glimpse-note">illustrative — from a demonstration run</p>
+            <p class="glimpse-note">illustrative · demonstration data</p>
           </div>
         </div>
       </div>
@@ -439,16 +493,27 @@ rejected 1 proposed action: tool not granted</pre>
           <span class="anchor" aria-hidden="true"></span>
           <p class="eyebrow">Junction 4 · Proof</p>
           <h2>You can prove it again, later, without paying again.</h2>
-          <p>The record is not a description of the work — it is a re-runnable copy of
-          it. Any past job can be re-executed from its recording and verified, on a
-          machine with no AI vendor account at all.</p>
+          <p>The record is a re-runnable copy of the work. Months later you can execute
+          it again, on a machine that holds no AI vendor key, and watch the same answer
+          come back.</p>
           <p class="aside">Record once. Replay anywhere.</p>
+          <div class="glimpse">
+            <p class="glimpse-label">a December decision, re-run for April's audit</p>
+            <div class="pair">
+              <pre>dec 12 · recorded
+key: <span class="hot">present</span>
+refund_0114: <span class="ok">approve</span></pre>
+              <pre>apr 03 · replayed
+key: <span class="hot">none</span>
+refund_0114: <span class="ok">approve</span></pre>
+            </div>
+          </div>
           <div class="glimpse">
             <p class="glimpse-label">the verification block, printed after every replay</p>
             <pre>replay: executed
 output_matches: <span class="ok">True</span>
 completions: 3/3 used, 0 prompt divergence(s)</pre>
-            <p class="glimpse-note">illustrative — from a demonstration run</p>
+            <p class="glimpse-note">illustrative · demonstration data</p>
           </div>
         </div>
       </div>
@@ -460,13 +525,31 @@ completions: 3/3 used, 0 prompt divergence(s)</pre>
           <span class="anchor" aria-hidden="true"></span>
           <p class="eyebrow">Junction 5 · Cost</p>
           <h2>The same work, for less, decided by you.</h2>
-          <p>Route the routine steps to a fast, inexpensive model and keep the expensive
-          one for the step that actually needs it — set in the job's own file, never
-          decided by the AI.</p>
-          <p>And nothing is welded to one vendor. If pricing changes or a model is
+          <p>Send the routine steps to a fast, inexpensive model and save the careful one
+          for the moment of judgment. The route is written in the job's own file. The AI
+          has no say in it.</p>
+          <p>Nothing is welded to one vendor, either. If pricing changes or a model is
           retired, you change one word.</p>
           <div class="glimpse">
-            <p class="glimpse-label">the same job, two vendors — one changed word</p>
+            <p class="glimpse-label">one job, two models · a 60-page freight contract,
+            reviewed</p>
+            <svg class="viz" viewBox="0 0 560 214" role="img" aria-label="A root splits at a junction: the thick branch goes to a fast model for reading and drafting, a thin gold branch goes to a careful model for the final judgment">
+              <path d="M280 12 C280 34 280 48 280 64" class="vz-root" stroke-width="2.6"/>
+              <circle cx="280" cy="72" r="5.5" class="vz-node"/>
+              <path d="M274 78 C224 102 178 122 146 152" class="vz-root" stroke-width="3"/>
+              <circle cx="228" cy="101" r="3" class="vz-rec" opacity="0.8"/>
+              <circle cx="194" cy="117" r="3" class="vz-rec" opacity="0.8"/>
+              <circle cx="164" cy="136" r="3" class="vz-rec" opacity="0.8"/>
+              <path d="M286 78 C330 106 356 130 372 158" class="vz-gold" stroke-width="1.7"/>
+              <circle cx="372" cy="158" r="3.4" class="vz-node"/>
+              <text x="42" y="182" font-size="16" class="vz-rec">fast, inexpensive model</text>
+              <text x="42" y="202" font-size="15" class="vz-mut">reads the 60 pages, drafts</text>
+              <text x="330" y="182" font-size="16" class="vz-acc">the careful model</text>
+              <text x="330" y="202" font-size="15" class="vz-mut">signs the final answer</text>
+            </svg>
+          </div>
+          <div class="glimpse">
+            <p class="glimpse-label">the vendor swap · one changed word</p>
             <div class="pair">
               <pre>model:
   provider: <span class="hot">openai</span></pre>
@@ -485,17 +568,54 @@ completions: 3/3 used, 0 prompt divergence(s)</pre>
           <p class="eyebrow">Junction 6 · Compounding</p>
           <h2>It gets better because you used it.</h2>
           <p>Every job leaves behind a complete, self-contained record of how your
-          operation actually works — owned by you, not by an AI vendor. That
-          accumulating record is the raw material for tuning the system to your
-          operation over time.</p>
-          <p class="aside">The network under the tree was never plumbing. It was the
-          asset, growing the whole time.</p>
+          operation actually works. You own it. Over time, that record becomes the raw
+          material for tuning the system to your work.</p>
+          <p class="aside">The roots were the asset all along.</p>
           <div class="glimpse">
-            <p class="glimpse-label">the estate of runs, accumulating</p>
-            <pre>runs/2026-07-14_intake_review.jsonl
-runs/2026-07-15_intake_review.jsonl
-runs/2026-07-16_intake_review.jsonl
-        ⋮</pre>
+            <p class="glimpse-label">the record, deepening · each run adds a node you keep</p>
+            <svg class="viz" viewBox="0 0 560 172" role="img" aria-label="Three root networks, growing denser: after one job, after a month of jobs, after a year of jobs">
+              <path d="M90 12 C90 30 90 44 90 58" class="vz-root" stroke-width="2"/>
+              <path d="M90 58 C76 78 66 92 62 104" class="vz-root" stroke-width="1.4"/>
+              <path d="M90 58 C104 80 112 92 118 102" class="vz-root" stroke-width="1.4"/>
+              <circle cx="90" cy="58" r="3" class="vz-node"/>
+              <circle cx="62" cy="104" r="2.6" class="vz-node"/>
+              <circle cx="118" cy="102" r="2.6" class="vz-node"/>
+              <path d="M280 12 C280 30 280 42 280 54" class="vz-root" stroke-width="2"/>
+              <path d="M280 54 C258 72 244 86 236 100" class="vz-root" stroke-width="1.4"/>
+              <path d="M280 54 C302 74 314 88 320 100" class="vz-root" stroke-width="1.4"/>
+              <path d="M236 100 C228 112 222 122 220 130" class="vz-root" stroke-width="1"/>
+              <path d="M320 100 C328 112 334 122 336 130" class="vz-root" stroke-width="1"/>
+              <path d="M280 54 C280 76 278 94 276 112" class="vz-root" stroke-width="1"/>
+              <circle cx="280" cy="54" r="3" class="vz-node"/>
+              <circle cx="236" cy="100" r="2.6" class="vz-node"/>
+              <circle cx="320" cy="100" r="2.6" class="vz-node"/>
+              <circle cx="220" cy="130" r="2.4" class="vz-node"/>
+              <circle cx="336" cy="130" r="2.4" class="vz-node"/>
+              <circle cx="276" cy="112" r="2.4" class="vz-node"/>
+              <path d="M470 12 C470 28 470 38 470 48" class="vz-root" stroke-width="2"/>
+              <path d="M470 48 C444 64 428 76 420 90" class="vz-root" stroke-width="1.4"/>
+              <path d="M470 48 C496 66 510 78 516 92" class="vz-root" stroke-width="1.4"/>
+              <path d="M470 48 C470 72 468 90 466 106" class="vz-root" stroke-width="1.2"/>
+              <path d="M420 90 C410 102 402 112 398 122" class="vz-root" stroke-width="1"/>
+              <path d="M420 90 C424 104 426 116 426 126" class="vz-root" stroke-width="1"/>
+              <path d="M516 92 C524 104 530 114 532 124" class="vz-root" stroke-width="1"/>
+              <path d="M516 92 C510 106 506 118 504 128" class="vz-root" stroke-width="1"/>
+              <path d="M466 106 C458 118 452 128 448 136" class="vz-root" stroke-width="1"/>
+              <path d="M466 106 C472 120 476 130 478 138" class="vz-root" stroke-width="1"/>
+              <circle cx="470" cy="48" r="3" class="vz-node"/>
+              <circle cx="420" cy="90" r="2.6" class="vz-node"/>
+              <circle cx="516" cy="92" r="2.6" class="vz-node"/>
+              <circle cx="466" cy="106" r="2.6" class="vz-node"/>
+              <circle cx="398" cy="122" r="2.4" class="vz-node"/>
+              <circle cx="426" cy="126" r="2.4" class="vz-node"/>
+              <circle cx="532" cy="124" r="2.4" class="vz-node"/>
+              <circle cx="504" cy="128" r="2.4" class="vz-node"/>
+              <circle cx="448" cy="136" r="2.4" class="vz-node"/>
+              <circle cx="478" cy="138" r="2.4" class="vz-node"/>
+              <text x="90" y="164" font-size="15" text-anchor="middle" class="vz-mut">one job</text>
+              <text x="280" y="164" font-size="15" text-anchor="middle" class="vz-mut">a month of jobs</text>
+              <text x="470" y="164" font-size="15" text-anchor="middle" class="vz-mut">a year of jobs</text>
+            </svg>
           </div>
         </div>
       </div>
@@ -508,7 +628,7 @@ runs/2026-07-16_intake_review.jsonl
         <h2>See your operation run this way.</h2>
         <p>One conversation. Bring the job you wish you could hand off.</p>
         <!-- TODO before launch: replace the span with <a class="cta" href="...">
-             once a contact destination exists — none does yet (SITE_RECON.md §7) -->
+             once a contact destination exists; none does yet (SITE_RECON.md §7) -->
         <span class="cta">Start the conversation</span>
         <p class="cta-note">contact details arrive with launch</p>
       </div>
