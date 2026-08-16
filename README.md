@@ -5,8 +5,10 @@ above ground, a descent through its roots below, one message per junction.
 
 ## Layout
 
-- `index.html` — the entire site. Self-contained: no dependencies, no build step,
-  no external requests. Inline CSS/JS, system fonts, procedural artwork.
+- `index.html` — the entire site. Self-contained: no build step, no external
+  requests. Inline CSS/JS, system fonts, procedural artwork, and a vendored
+  anime.js v4 bundle (MIT) driving the entrance, reveal, and root-drawing
+  animations. Ambient loops (mote pulse, falling leaves) stay in CSS.
 - `tools/generate_tree.py` — generates the hero tree (space colonization, seeded).
   Regenerate with `python3 tools/generate_tree.py 7 out/` and splice the resulting
   `tree_fragment.svg` into the hero `<svg>` in `index.html`. Seed 7 is the shipped tree.
