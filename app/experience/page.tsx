@@ -12,7 +12,6 @@ const roles = [
       "Led a database encryption refactor that expanded support from one cloud database platform to twelve and reduced latency on the original platform by 60%. Improved the backend, UI, and user experience.",
       "Turned a biometric authentication proof of concept into a full stack web application on AWS with a simple SDK. Designed the architecture around AWS best practices.",
       "Led demos and proofs of concept for prospects and customers, built custom integrations, and helped customers implement purchased software and new features.",
-      "Migrated tens of thousands of configuration items from an older feature to its replacement using automated scripts.",
     ],
   },
   {
@@ -22,7 +21,8 @@ const roles = [
     period: "2023 — 2024",
     details: [
       "Worked with systems and support engineers to write software requirements for an upcoming avionics product. The requirements were reviewed and approved by the FAA.",
-      "Wrote and ran tests against an emulated environment to verify that the software met those requirements. Used Visual Basic to test emulated C++ avionics software.",
+      "Wrote and ran tests against an emulated environment to verify that the software met those requirements.",
+      "Used Visual Basic to test emulated C++ avionics software.",
     ],
   },
 ];
