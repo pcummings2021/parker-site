@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default function ExperiencePage() {
   return (
     <main id="main-content" className="page">
-      <h1 className="page-title">Experience</h1>
+      <h1 className="sr-only">Experience</h1>
       <div className="page-content">
         {roles.map((role) => (
           <section key={role.number} className="experience-item">
