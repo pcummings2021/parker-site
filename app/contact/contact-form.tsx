@@ -40,24 +40,24 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-8" aria-label="Contact form">
+    <form onSubmit={handleSubmit} className="contact-form" aria-label="Contact form">
       <div className="hidden" aria-hidden="true">
         <label htmlFor="website">Website</label>
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
       <div>
-        <label htmlFor="email" className="mb-3 block text-[10px] font-bold uppercase tracking-[0.16em] sm:text-xs">Your email</label>
+        <label htmlFor="email">Your email</label>
         <input id="email" name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@example.com" className="contact-field" />
       </div>
       <div>
-        <label htmlFor="message" className="mb-3 block text-[10px] font-bold uppercase tracking-[0.16em] sm:text-xs">Message</label>
+        <label htmlFor="message">Message</label>
         <textarea id="message" name="message" required minLength={1} maxLength={5000} rows={5} placeholder="Tell me what you have in mind..." className="contact-field resize-y" />
       </div>
-      <div className="flex flex-wrap items-center gap-5">
-        <button type="submit" disabled={status === "sending"} className="border border-black bg-black px-6 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--paper)] transition-colors hover:bg-transparent hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 disabled:cursor-wait disabled:opacity-60 sm:text-xs">
-          {status === "sending" ? "Sending..." : "Send message ↗"}
+      <div>
+        <button type="submit" disabled={status === "sending"} className="contact-button">
+          {status === "sending" ? "Sending..." : "Send message"}
         </button>
-        <p role="status" aria-live="polite" className="max-w-xs text-xs leading-relaxed">
+        <p role="status" aria-live="polite" className="contact-status">
           {status === "sent" && "Message sent. Thank you for reaching out."}
           {status === "email-app" && "Your email app should open with the message ready. Press Send there to finish."}
           {status === "error" && "Could not send your message. Please try again or email me directly."}

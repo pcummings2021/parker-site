@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
+import { Courier_Prime } from "next/font/google";
 import SiteHeader from "./components/site-header";
 import "./globals.css";
 
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-mono",
+const courierPrime = Courier_Prime({
+  variable: "--font-typewriter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -17,14 +17,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={ibmPlexMono.variable}>
-        <div className="flex min-h-screen flex-col px-5 py-5 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+      <body className={courierPrime.variable}>
+        <div className="site-shell">
           <SiteHeader />
           {children}
-          <footer className="mt-24 flex justify-between border-t border-black pt-3 text-[10px] font-bold uppercase tracking-[0.16em]">
-            <span>© 2026</span>
-            <span>New York / Everywhere</span>
-          </footer>
         </div>
       </body>
     </html>
