@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About me",
-  description: "About Parker, a software engineer turning technical ideas into useful products.",
+  description: "Parker is a Software Engineer working in Melbourne, Florida.",
 };
 
 export default function AboutPage() {
@@ -10,9 +10,7 @@ export default function AboutPage() {
     <main id="main-content" className="page">
       <h1 className="page-title">About me</h1>
       <div className="page-content">
-        <p>I&apos;m Parker, a software engineer working on ideas that need to exist in the real world.</p>
-        <p>I build software that makes complex ideas useful. My work spans data encryption, partner integrations, flight avionics, and security research.</p>
-        <p>I&apos;m currently available for selected collaborations.</p>
+        <p>I&apos;m Parker, a Software Engineer working in Melbourne, Florida. I enjoy versatile startups with dynamic projects, seeing things end-to-end, and producing high-quality standardized software.</p>
       </div>
     </main>
   );
