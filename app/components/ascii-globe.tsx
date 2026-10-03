@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { renderGlobe } from "./ascii-globe-frame";
 
 const initialFrame = renderGlobe(0);
@@ -8,11 +8,10 @@ const initialFrame = renderGlobe(0);
 export default function AsciiGlobe() {
   const frameRef = useRef<HTMLPreElement>(null);
   const angleRef = useRef(0);
-  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const element = frameRef.current;
-    if (!element || paused) return;
+    if (!element) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let inView = false;
@@ -23,11 +22,9 @@ export default function AsciiGlobe() {
       if (!element) return;
       if (!previousTime) previousTime = time;
       const elapsed = time - previousTime;
-      if (elapsed >= 1000 / 15) {
-        angleRef.current += (Math.min(elapsed, 100) / 1000) * 0.45;
-        element.textContent = renderGlobe(angleRef.current);
-        previousTime = time;
-      }
+      angleRef.current += (Math.min(elapsed, 100) / 1000) * 0.45;
+      element.textContent = renderGlobe(angleRef.current);
+      previousTime = time;
       animationId = window.requestAnimationFrame(animate);
     }
 
@@ -56,14 +53,11 @@ export default function AsciiGlobe() {
       document.removeEventListener("visibilitychange", syncAnimation);
       reducedMotion.removeEventListener("change", syncAnimation);
     };
-  }, [paused]);
+  }, []);
 
   return (
     <div className="ascii-globe">
       <pre ref={frameRef} aria-hidden="true" className="ascii-globe-frame">{initialFrame}</pre>
-      <button type="button" className="ascii-globe-toggle" aria-label={paused ? "Resume globe animation" : "Pause globe animation"} onClick={() => setPaused((value) => !value)}>
-        {paused ? "Resume" : "Pause"}
-      </button>
     </div>
   );
 }

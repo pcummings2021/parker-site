@@ -51,21 +51,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   width: fit-content;
   margin: 0 auto;
   font-family: var(--font-typewriter), "Courier New", monospace;
-  font-size: 8px;
-  line-height: 9px;
+  font-size: 6px;
+  line-height: 6.75px;
   white-space: pre;
   user-select: none;
-}
-.ascii-globe-toggle {
-  border: 0;
-  padding: 4px 8px;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  font-size: 12px;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  cursor: pointer;
 }
 .page-content p { margin: 0 0 1.5em; }
 .page-content h2 { margin: 0 0 0.35em; font-size: 16px; font-weight: 700; }
@@ -109,8 +98,4 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .site-shell { width: min(100% - 36px, 640px); }
   .page { padding-top: 72px; }
   .page-with-globe { padding-top: 32px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ascii-globe-toggle { display: none; }
 }
