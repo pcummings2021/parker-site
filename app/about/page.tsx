@@ -12,14 +12,14 @@ export default function AboutPage() {
       <div className="page-content">
         <p>I&apos;m Parker, a Software Engineer working in Melbourne, Florida.</p>
         <p>I enjoy versatile startups with dynamic projects, seeing things end-to-end, and producing high-quality standardized software.</p>
-        <p>Recently I interact the most frequently with:</p>
+        <p>Lately, I&apos;ve been working with:</p>
         <ul className="list-disc">
           <li>AWS architectures</li>
-          <li>encryption products</li>
-          <li>databases (cloud + on-prem)</li>
-          <li>Containerized applications (Docker/ECS)</li>
-          <li>identity/privileged access management</li>
-          <li>Golang, Node, and Terraform</li>
+          <li>Encryption products</li>
+          <li>Databases (cloud and on-premises)</li>
+          <li>Containerized applications (Docker and ECS)</li>
+          <li>Identity and privileged access management</li>
+          <li>Go, Node.js, and Terraform</li>
         </ul>
       </div>
     </main>
