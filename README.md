@@ -17,9 +17,12 @@ Vercel is the recommended deployment target. Import this repository in Vercel, t
 
 ## Contact form
 
-The Contact page sends messages to `me@parkerparkerparker.com` through Resend. Verify `parkerparkerparker.com` (or a sending subdomain) in Resend, then set these server-side environment variables locally in `.env.local` and in the Vercel project:
+The Contact page sends messages from your Zoho mailbox to `me@parkerparkerparker.com` through an encrypted SMTP connection. Set these server-side environment variables locally in `.env.local` and in the Vercel project's Production environment:
 
-- `RESEND_API_KEY`: a Resend API key with permission to send email.
-- `CONTACT_FROM_EMAIL`: a sender on the verified domain, for example `Parker Website <contact@parkerparkerparker.com>`.
+- `ZOHO_SMTP_PASSWORD`: a Zoho app-specific password. Generate it in Zoho Accounts → Security → App passwords. Keep it out of source control and chat.
+- `ZOHO_SMTP_USER`: the mailbox used to authenticate and send. Defaults to `me@parkerparkerparker.com`.
+- `ZOHO_SMTP_HOST`: the outgoing server shown in your Zoho Mail account settings. Defaults to `smtppro.zoho.com` for the current Mail Lite account. The connection uses port 465 with TLS.
 
-The visitor's address is used as the message's reply-to address. Until both variables are configured, submitting the form opens the visitor's email app with a prepared message to the same recipient. The form does not claim the message was sent until the API confirms delivery.
+Replies go to the visitor's email address. The form confirms success only after Zoho accepts the message. If sending is unavailable, it preserves the visitor's message and shows an error; it does not open their email app. Redeploy after adding or changing environment variables.
+
+See [Zoho's SMTP settings](https://www.zoho.com/mail/help/zoho-smtp.html) and [app password instructions](https://www.zoho.com/mail/help/adminconsole/two-factor-authentication.html).
