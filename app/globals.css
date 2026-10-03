@@ -44,15 +44,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .skip-link { position: absolute; left: -9999px; }
 .skip-link:focus { left: 24px; top: 16px; z-index: 10; background: var(--paper); padding: 8px; }
 
-.page { padding-top: clamp(80px, 14vh, 150px); }
-.page-with-globe { padding-top: 48px; }
+.site-globe { padding-top: 48px; }
 .ascii-globe { margin: 0 auto 38px; text-align: center; }
 .ascii-globe-frame {
   width: fit-content;
   margin: 0 auto;
   font-family: var(--font-typewriter), "Courier New", monospace;
-  font-size: 6px;
-  line-height: 6.75px;
+  font-size: 4px;
+  line-height: 4.5px;
   white-space: pre;
   user-select: none;
 }
@@ -96,6 +95,5 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (max-width: 480px) {
   .site-shell { width: min(100% - 36px, 640px); }
-  .page { padding-top: 72px; }
-  .page-with-globe { padding-top: 32px; }
+  .site-globe { padding-top: 32px; }
 }

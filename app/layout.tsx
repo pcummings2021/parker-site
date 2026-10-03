@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Courier_Prime } from "next/font/google";
 import SiteHeader from "./components/site-header";
+import AsciiGlobe from "./components/ascii-globe";
 import "./globals.css";
 
 const courierPrime = Courier_Prime({
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={courierPrime.variable}>
         <div className="site-shell">
           <SiteHeader />
+          <div className="site-globe"><AsciiGlobe /></div>
           {children}
         </div>
       </body>

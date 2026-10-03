@@ -1,5 +1,5 @@
-const columns = 64;
-const rows = 31;
+const columns = 96;
+const rows = 45;
 const shades = ".:-=+*#@";
 const points: [number, number, number][] = [];
 
@@ -12,14 +12,14 @@ function addPoint(latitude: number, longitude: number) {
 }
 
 // Latitude and longitude lines form the globe's wireframe.
-for (let meridian = 0; meridian < 12; meridian++) {
-  for (let sample = 0; sample <= 120; sample++) {
-    addPoint(-Math.PI / 2 + (sample / 120) * Math.PI, (meridian / 12) * Math.PI * 2);
+for (let meridian = 0; meridian < 16; meridian++) {
+  for (let sample = 0; sample <= 160; sample++) {
+    addPoint(-Math.PI / 2 + (sample / 160) * Math.PI, (meridian / 16) * Math.PI * 2);
   }
 }
-for (let parallel = -3; parallel <= 3; parallel++) {
-  for (let sample = 0; sample < 160; sample++) {
-    addPoint((parallel / 8) * Math.PI, (sample / 160) * Math.PI * 2);
+for (let parallel = -4; parallel <= 4; parallel++) {
+  for (let sample = 0; sample < 240; sample++) {
+    addPoint((parallel / 10) * Math.PI, (sample / 240) * Math.PI * 2);
   }
 }
 
@@ -38,8 +38,8 @@ export function renderGlobe(angle: number): string {
     const tiltedY = y * cosTilt - rotatedZ * sinTilt;
     const tiltedZ = y * sinTilt + rotatedZ * cosTilt;
     const perspective = 4 / (4 - tiltedZ);
-    const column = Math.round(columns / 2 + rotatedX * 23 * perspective);
-    const row = Math.round(rows / 2 - tiltedY * 11 * perspective);
+    const column = Math.round(columns / 2 + rotatedX * 36 * perspective);
+    const row = Math.round(rows / 2 - tiltedY * 17 * perspective);
 
     if (column < 0 || column >= columns || row < 0 || row >= rows) continue;
     const index = row * columns + column;
