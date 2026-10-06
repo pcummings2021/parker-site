@@ -21,6 +21,9 @@ export default function SiteHeader() {
             {link.label}
           </Link>
         ))}
+        <a href="https://www.linkedin.com/in/parker-cummings1/" target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
       </nav>
     </header>
   );
