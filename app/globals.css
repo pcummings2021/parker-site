@@ -56,12 +56,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   user-select: none;
 }
 .page-content p { margin: 0 0 1.5em; }
-.page-content h2 { margin: 0 0 0.35em; font-size: 16px; font-weight: 700; }
+.page-content h2, .page-content h3 { margin: 0 0 0.35em; font-size: 16px; font-weight: 700; }
 .page-content ul { margin: 0; padding-left: 1.5em; }
 .page-content li { padding-left: 0.2em; }
 .about-topics { list-style: none; }
 .about-topics li + li { margin-top: 12px; }
+.about-section { margin-top: 48px; }
+.education-school { margin-top: 24px; }
+.education-school-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 24px;
+  margin-bottom: 8px;
+}
+.education-school-heading h3 { margin: 0; font-weight: 400; }
+.education-school-heading span { font-size: 14px; }
+.education-school li + li { margin-top: 8px; }
 
+.experience-group + .experience-group { margin-top: 80px; }
+.experience-group > h2 { margin-bottom: 32px; }
 .experience-item { margin-bottom: 80px; }
 .experience-item:last-child { margin-bottom: 0; }
 .experience-item li + li { margin-top: 16px; }
