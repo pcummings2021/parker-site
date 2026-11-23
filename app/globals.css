@@ -75,6 +75,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .education-school-heading span { font-size: 14px; }
 .education-school li + li { margin-top: 8px; }
 .skills-list li + li { margin-top: 8px; }
+.skill-row {
+  display: grid;
+  grid-template-columns: 10ch minmax(0, 1fr);
+  column-gap: 1ch;
+  overflow-wrap: anywhere;
+}
 
 .experience-group + .experience-group { margin-top: 80px; }
 .experience-group > h2 { margin-bottom: 32px; }
