@@ -31,6 +31,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding-block: 32px 120px;
 }
 
+.site-header { position: relative; }
+.menu-toggle { display: none; }
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -45,7 +47,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .skip-link:focus { left: 24px; top: 16px; z-index: 10; background: var(--paper); padding: 8px; }
 
 .site-globe { padding-top: 48px; }
-.ascii-globe { margin: 0 auto 38px; text-align: center; }
+.ascii-globe { position: relative; width: fit-content; margin: 0 auto 38px; text-align: center; }
+.globe-trigger {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+.globe-blip {
+  position: absolute;
+  pointer-events: none;
+  animation: globe-blip 450ms ease-out forwards;
+}
+@keyframes globe-blip {
+  from { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+  to { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .globe-blip { animation: globe-blip-still 150ms linear forwards; }
+}
+@keyframes globe-blip-still {
+  from { transform: translate(-50%, -50%); opacity: 0.8; }
+  to { transform: translate(-50%, -50%); opacity: 0; }
+}
 .ascii-globe-frame {
   width: fit-content;
   margin: 0 auto;
@@ -115,7 +146,49 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .contact-button:disabled { cursor: wait; opacity: 0.6; }
 .contact-status { margin: 12px 0 0 !important; font-size: 14px; }
 
+@media (max-width: 600px) {
+  .site-shell { padding-block: 20px 72px; }
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 52px;
+    right: 0;
+    z-index: 20;
+    min-width: 180px;
+    padding: 8px 16px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    flex-direction: column;
+    gap: 0;
+    font-size: 15px;
+  }
+  .site-nav[data-open="true"] { display: flex; }
+  .site-nav a { display: flex; align-items: center; min-height: 44px; }
+  .page-content { overflow-wrap: break-word; }
+  .contact-field { min-width: 0; font-size: 16px; }
+  .contact-button { min-height: 44px; }
+}
+
 @media (max-width: 480px) {
+  body { font-size: 15px; }
   .site-shell { width: min(100% - 36px, 640px); }
-  .site-globe { padding-top: 32px; }
+  .site-globe { padding-top: 20px; }
+  .ascii-globe { margin-bottom: 28px; }
+  .about-section { margin-top: 36px; }
+  .experience-item { margin-bottom: 48px; }
+  .experience-group + .experience-group { margin-top: 48px; }
 }
