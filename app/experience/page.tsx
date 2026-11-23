@@ -27,6 +27,7 @@ const roles = [
     title: "Software Engineering Intern",
     organization: "Avidyne Corporation",
     period: "May 2023 — April 2024",
+    summary: "Student intern focused on software testing. Worked full-time during the summer and part-time during semesters.",
     details: [
       "Built repeatable avionics verification tests with systems and support engineers, covering OS interfaces through display layers.",
       "Used visual basic libraries and emulated C++ components to validate behavior and support FAA compliance.",
