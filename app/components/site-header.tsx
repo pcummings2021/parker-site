@@ -24,6 +24,9 @@ export default function SiteHeader() {
         <a href="https://www.linkedin.com/in/parker-cummings1/" target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>
+        <a href="https://github.com/pcummings2021" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
       </nav>
     </header>
   );
