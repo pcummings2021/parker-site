@@ -46,9 +46,11 @@ export default function AboutPage() {
         </section>
         <section className="about-section" aria-labelledby="skills-heading">
           <h2 id="skills-heading">Software skills</h2>
-          <p>Languages: Python, SQL, JavaScript/TypeScript, Go, Java, and Terraform.</p>
-          <p>Tools: Git, GitHub, GitLab, Docker, AWS/Azure/GCP, OLTP Databases, Snowflake, Databricks, Hermes, Opencode, Claude Code, and Codex.</p>
-          <p>Processes: Scrum, Agile, Waterfall, SDLC, CI/CD, and AWS Well-Architected Framework.</p>
+          <ul className="skills-list">
+            <li>Languages: Python, SQL, JavaScript/TypeScript, Go, Java, and Terraform.</li>
+            <li>Tools: Git, GitHub, GitLab, Docker, AWS/Azure/GCP, OLTP Databases, Snowflake, Databricks, Hermes, Opencode, Claude Code, and Codex.</li>
+            <li>Processes: Scrum, Agile, Waterfall, SDLC, CI/CD, and AWS Well-Architected Framework.</li>
+          </ul>
         </section>
       </div>
     </main>

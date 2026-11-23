@@ -74,6 +74,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .education-school-heading h3 { margin: 0; font-weight: 400; }
 .education-school-heading span { font-size: 14px; }
 .education-school li + li { margin-top: 8px; }
+.skills-list li + li { margin-top: 8px; }
 
 .experience-group + .experience-group { margin-top: 80px; }
 .experience-group > h2 { margin-bottom: 32px; }
