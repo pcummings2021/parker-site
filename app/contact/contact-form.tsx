@@ -44,7 +44,7 @@ export default function ContactForm() {
       </div>
       <div>
         <label htmlFor="message">Message</label>
-        <textarea id="message" name="message" required minLength={1} maxLength={5000} rows={5} placeholder="Tell me what you have in mind..." className="contact-field resize-y" />
+        <textarea id="message" name="message" required minLength={1} maxLength={5000} rows={5} placeholder="Write your message..." className="contact-field resize-y" />
       </div>
       <div>
         <button type="submit" disabled={status === "sending"} className="contact-button">

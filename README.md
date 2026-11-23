@@ -1,6 +1,8 @@
 # parkerparkerparker.com
 
-Minimal portfolio POC built with Next.js, React, TypeScript, and Tailwind CSS v4.
+Personal portfolio at [parkerparkerparker.com](https://parkerparkerparker.com), built with Next.js, React, TypeScript, and Tailwind CSS v4.
+
+The site includes About, Experience, and Contact pages, plus an animated ASCII globe with five shaded ships. Animation pauses when offscreen or hidden and respects reduced-motion preferences.
 
 ## Local development
 
@@ -10,6 +12,8 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+Run `npm run build` to check the production build and `npm run lint` to run ESLint. The build downloads Courier Prime through Google Fonts; the contact form requires outbound SMTP access at runtime.
 
 ## Deployment
 
